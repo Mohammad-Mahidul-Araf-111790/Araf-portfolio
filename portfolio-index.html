@@ -282,76 +282,6 @@ nav {
   opacity: 0;
   animation: fadeLeft .8s 1.5s forwards;
 }
-
-/* ═══════════════════════════════════════════
-   IMAGE SECTION
-═══════════════════════════════════════════ */
-.hero-image-wrapper {
-  position: absolute;
-  right: 8vw;
-  top: 50%;
-  transform: translateY(-50%);
-  opacity: 0;
-  animation: fadeLeft .8s 1.5s forwards;
-  perspective: 1200px;
-}
-
-.image-container {
-  position: relative;
-  width: 280px;
-  height: 360px;
-  border-radius: 12px;
-  overflow: hidden;
-  border: 2px solid var(--neon-blue);
-  box-shadow: 0 0 32px rgba(0,212,255,.25), inset 0 0 32px rgba(0,212,255,.08);
-  background: rgba(13,17,23,.9);
-  transition: box-shadow .3s;
-  transform-style: preserve-3d;
-}
-
-.image-container:hover {
-  box-shadow: 0 0 48px rgba(0,212,255,.4), inset 0 0 48px rgba(0,212,255,.12);
-}
-
-.image-container img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  display: block;
-  filter: brightness(0.95) contrast(1.05);
-  transition: filter .3s;
-}
-
-.image-container:hover img {
-  filter: brightness(1) contrast(1.1);
-}
-
-.image-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(0,212,255,.1), transparent);
-  pointer-events: none;
-  border-radius: 12px;
-}
-
-.image-border-glow {
-  position: absolute;
-  inset: -2px;
-  border-radius: 12px;
-  padding: 2px;
-  background: linear-gradient(45deg, var(--neon-blue), var(--neon-red), var(--neon-blue));
-  -webkit-mask: linear-gradient(white, white) content-box, linear-gradient(white, white);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  opacity: 0;
-  transition: opacity .3s;
-  pointer-events: none;
-}
-
-.image-container:hover ~ .image-border-glow {
-  opacity: 0.6;
-}
 .stat-blob {
   background: rgba(13,17,23,.85);
   border: 1px solid rgba(0,212,255,.2);
@@ -870,7 +800,6 @@ footer span { color: var(--neon-red); }
   .section { padding: 80px 6vw 50px; }
   .two-col, .skills-grid, .projects-grid { grid-template-columns: 1fr; gap: 32px; }
   .hero-stats { display: none; }
-  .hero-image-wrapper { display: none; }
   .interests-grid { grid-template-columns: 1fr; }
   .contact-strip { flex-direction: column; text-align: center; }
 }
@@ -942,16 +871,6 @@ footer span { color: var(--neon-red); }
       <div class="num">4</div>
       <div class="lbl">PROJECTS</div>
     </div>
-  </div>
-
-  <!-- Profile Image Section -->
-  <div class="hero-image-wrapper">
-    <div class="image-container" id="hero-image-container">
-      <!-- CUSTOMIZE YOUR IMAGE HERE -->
-      <img id="hero-image" src="image/profil.jpg" alt="Profile Image"/>
-      <div class="image-overlay"></div>
-    </div>
-    <div class="image-border-glow"></div>
   </div>
 
   <div class="scroll-hint">
@@ -1233,7 +1152,7 @@ const ANIMATION_SPEEDS = {
   cursor: 150,
   typewriter: { fast: 38, slow: 68, pause: 1800 },
   parallax: 0,
-};
+};scroll: 0.05
 
 /* ── MATRIX RAIN ── */
 (function(){
@@ -1268,32 +1187,42 @@ const ANIMATION_SPEEDS = {
   setInterval(draw, ANIMATION_SPEEDS.matrix);
 })();
 
-/* ── CUSTOM CURSOR WITH PARALLAX ── */
+/* ── CUSTOM CURSOR WITH SCROLL SYNC ── */
 (function(){
   const c = document.getElementById('cursor');
-  const imageContainer = document.getElementById('hero-image-container');
+  let scrollY = 0;
   let mouseX = 0, mouseY = 0;
 
+  // Track scroll position
+  document.addEventListener('scroll', () => {
+    scrollY = window.scrollY;
+  }, { passive: true });
+
+  // Smooth cursor movement synchronized with scroll
   document.addEventListener('mousemove', e => {
     mouseX = e.clientX;
     mouseY = e.clientY;
+    
+    // Calculate cursor position accounting for scroll
+    const adjustedY = e.clientY + scrollY;
+    
     c.style.left = e.clientX + 'px';
-    c.style.top  = e.clientY + 'px';
+    c.style.top = e.clientY + 'px';
+  }, { passive: true });
 
-    // Parallax effect on image
-    if(imageContainer){
-      const rect = imageContainer.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-      const distX = (mouseX - centerX) * ANIMATION_SPEEDS.parallax;
-      const distY = (mouseY - centerY) * ANIMATION_SPEEDS.parallax;
-      imageContainer.style.transform = `translateY(calc(-50% + ${distY}px)) translateX(${distX}px)`;
-    }
-  });
-
-  document.querySelectorAll('a,button,.proj-card,.interest-card,.contact-icon').forEach(el => {
+  // Cursor hover effects
+  document.querySelectorAll('a,button,.proj-card,.interest-card,.contact-icon,.nav-links a').forEach(el => {
     el.addEventListener('mouseenter', () => c.classList.add('hover'));
     el.addEventListener('mouseleave', () => c.classList.remove('hover'));
+  });
+
+  // Hide cursor when leaving viewport
+  document.addEventListener('mouseleave', () => {
+    c.style.opacity = '0';
+  });
+  
+  document.addEventListener('mouseenter', () => {
+    c.style.opacity = '1';
   });
 })();
 
@@ -1337,28 +1266,7 @@ const ANIMATION_SPEEDS = {
 
 /* ── SKILL BAR ANIMATION ── */
 (function(){
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if(e.isIntersecting){
-        e.target.querySelectorAll('.skill-fill').forEach(bar => {
-          bar.style.width = bar.dataset.w + '%';
-        });
-      }
-    });
-  }, { threshold: .3 });
-  document.querySelectorAll('#skills').forEach(s => obs.observe(s));
-})();
-
-/* ── IMAGE SOURCE CUSTOMIZATION ── */
-(function(){
-  const heroImage = document.getElementById('hero-image');
-  // TO USE YOUR LOCAL IMAGE:
-  // 1. Create an 'images' folder in your project directory
-  // 2. Copy your photo (e.g., profile.jpg) into that folder
-  // 3. The path 'images/profile.jpg' will work on both local & Vercel
-  
-  // ALTERNATIVE OPTIONS:
-  // Option 1: Use an external image URL
+  conOption 1: Use an external image URL
   // heroImage.src = 'https://example.com/your-image.jpg';
   
   // Option 2: Base64 encoded image (for embedded data)
