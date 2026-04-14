@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Araf | CS Engineer · AI · Cybersecurity</title>
+<title>Araf | CS Engineer · Quantum-AI · Cyber-security</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet"/>
 <style>
@@ -69,7 +69,7 @@ body {
   top: 0; left: 0;
   width: 100%; height: 100%;
   z-index: 0;
-  opacity: .13;
+  opacity: .45;
   pointer-events: none;
 }
 
@@ -281,6 +281,76 @@ nav {
   gap: 20px;
   opacity: 0;
   animation: fadeLeft .8s 1.5s forwards;
+}
+
+/* ═══════════════════════════════════════════
+   IMAGE SECTION
+═══════════════════════════════════════════ */
+.hero-image-wrapper {
+  position: absolute;
+  right: 8vw;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0;
+  animation: fadeLeft .8s 1.5s forwards;
+  perspective: 1200px;
+}
+
+.image-container {
+  position: relative;
+  width: 280px;
+  height: 360px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 2px solid var(--neon-blue);
+  box-shadow: 0 0 32px rgba(0,212,255,.25), inset 0 0 32px rgba(0,212,255,.08);
+  background: rgba(13,17,23,.9);
+  transition: box-shadow .3s;
+  transform-style: preserve-3d;
+}
+
+.image-container:hover {
+  box-shadow: 0 0 48px rgba(0,212,255,.4), inset 0 0 48px rgba(0,212,255,.12);
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  filter: brightness(0.95) contrast(1.05);
+  transition: filter .3s;
+}
+
+.image-container:hover img {
+  filter: brightness(1) contrast(1.1);
+}
+
+.image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(0,212,255,.1), transparent);
+  pointer-events: none;
+  border-radius: 12px;
+}
+
+.image-border-glow {
+  position: absolute;
+  inset: -2px;
+  border-radius: 12px;
+  padding: 2px;
+  background: linear-gradient(45deg, var(--neon-blue), var(--neon-red), var(--neon-blue));
+  -webkit-mask: linear-gradient(white, white) content-box, linear-gradient(white, white);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity .3s;
+  pointer-events: none;
+}
+
+.image-container:hover ~ .image-border-glow {
+  opacity: 0.6;
 }
 .stat-blob {
   background: rgba(13,17,23,.85);
@@ -800,6 +870,7 @@ footer span { color: var(--neon-red); }
   .section { padding: 80px 6vw 50px; }
   .two-col, .skills-grid, .projects-grid { grid-template-columns: 1fr; gap: 32px; }
   .hero-stats { display: none; }
+  .hero-image-wrapper { display: none; }
   .interests-grid { grid-template-columns: 1fr; }
   .contact-strip { flex-direction: column; text-align: center; }
 }
@@ -854,7 +925,7 @@ footer span { color: var(--neon-red); }
 
   <div class="hero-cta">
     <a class="btn btn-primary" href="#projects">View Projects</a>
-    <a class="btn btn-outline" href="https://github.com/YOUR_USERNAME" target="_blank">GitHub →</a>
+    <a class="btn btn-outline" href="https://github.com/Mohammad-Mahidul-Araf-111790" target="_blank">GitHub →</a>
   </div>
 
   <!-- floating stats -->
@@ -871,6 +942,16 @@ footer span { color: var(--neon-red); }
       <div class="num">4</div>
       <div class="lbl">PROJECTS</div>
     </div>
+  </div>
+
+  <!-- Profile Image Section -->
+  <div class="hero-image-wrapper">
+    <div class="image-container" id="hero-image-container">
+      <!-- CUSTOMIZE YOUR IMAGE HERE -->
+      <img id="hero-image" src=e: alt="Profile Image"/>
+      <div class="image-overlay"></div>
+    </div>
+    <div class="image-border-glow"></div>
   </div>
 
   <div class="scroll-hint">
@@ -1062,53 +1143,51 @@ footer span { color: var(--neon-red); }
   <div class="s-line reveal"></div>
 
   <div class="projects-grid">
-    <a class="proj-card reveal" href="https://github.com/YOUR_USERNAME/Daily-Expense-Logger" target="_blank">
+    <a class="proj-card reveal" href="https://github.com/Mohammad-Mahidul-Araf-111790/BRACU-CSE422-Ai-ML-Lab-Project" target="_blank">
       <span class="proj-arrow">↗</span>
       <div class="proj-type project">PROJECT</div>
-      <div class="proj-name">Daily Expense Logger</div>
-      <div class="proj-desc">Full-stack personal finance tracker with analytics dashboard, monthly summaries & SQL-backed data storage.</div>
+      <div class="proj-name">BRACU-CSE422-Ai-ML-Lab-Project</div>
+      <div class="proj-desc">BRACU CSE422 Artificial Intelligence and Machine Learning Lab Project</div>
       <div class="proj-stack">
-        <span class="stack-tag">Next.js</span>
         <span class="stack-tag">Python</span>
-        <span class="stack-tag">PostgreSQL</span>
+        <span class="stack-tag">Scikit-Learn</span>
       </div>
     </a>
 
-    <a class="proj-card reveal" href="https://github.com/YOUR_USERNAME/AI-Problem-Analyzer" target="_blank">
+    <a class="proj-card reveal" href="https://github.com/Mohammad-Mahidul-Araf-111790/BRACU_CSE423-Computer-Graphics-Lab-Project" target="_blank">
       <span class="proj-arrow">↗</span>
       <div class="proj-type project">PROJECT</div>
-      <div class="proj-name">AI Deep Problem Analyzer</div>
-      <div class="proj-desc">Multi-domain AI tool for deep analysis of Math, Science & Coding problems using large language model APIs.</div>
+      <div class="proj-name">BRACU CSE423-Computer-Graphics-Lab-Project</div>
+      <div class="proj-desc">Space Black-Hole Simulator</div>
       <div class="proj-stack">
         <span class="stack-tag">Python</span>
-        <span class="stack-tag">Claude API</span>
-        <span class="stack-tag">Streamlit</span>
+        <span class="stack-tag">Claude Code</span>
       </div>
     </a>
 
-    <a class="proj-card reveal" href="https://github.com/YOUR_USERNAME/EDA-Report-Generator" target="_blank">
+    <a class="proj-card reveal" href="https://github.com/Mohammad-Mahidul-Araf-111790/The-Personal-Habit-Tracker" target="_blank">
       <span class="proj-arrow">↗</span>
       <div class="proj-type project">PROJECT</div>
-      <div class="proj-name">EDA Report Generator</div>
-      <div class="proj-desc">Automated exploratory data analysis tool that generates visual reports & Streamlit dashboards from raw datasets.</div>
+      <div class="proj-name">CSE370 ( DBMS ) Lab project</div>
+      <div class="proj-desc">Track users daily habit into a SQL-DBMS</div>
       <div class="proj-stack">
-        <span class="stack-tag">Python</span>
-        <span class="stack-tag">Pandas</span>
-        <span class="stack-tag">Streamlit</span>
-        <span class="stack-tag">Matplotlib</span>
+        <span class="stack-tag">Next.Js</span>
+        <span class="stack-tag">SQL</span>
+        <span class="stack-tag">Claude Code</span>
+        <span class="stack-tag">Gemini API</span>
       </div>
     </a>
 
-    <a class="proj-card reveal" href="https://github.com/YOUR_USERNAME/Quantum-ML-Malware-Detector" target="_blank">
+    <a class="proj-card reveal" href="https://github.com/Mohammad-Mahidul-Araf-111790/BRACU-Undergrade-Thesis-Research" target="_blank">
       <span class="proj-arrow">↗</span>
-      <div class="proj-type thesis">THESIS</div>
-      <div class="proj-name">Quantum-ML Malware Detector</div>
-      <div class="proj-desc">Undergraduate thesis — hybrid Quantum Machine Learning model for malware & phishing URL detection, combining classical ML with quantum circuits.</div>
+      <div class="proj-type thesis">Thesis</div>
+      <div class="proj-name">Quantum-MCMC+SNN Malware Detector</div>
+      <div class="proj-desc">Undergraduate thesis still under development on— hybrid Quantum Markov-Chain-Monte-Carlo & SNN model for malware & phishing URL detection, combining classical ML with quantum circuits.</div>
       <div class="proj-stack">
         <span class="stack-tag">Python</span>
         <span class="stack-tag">Qiskit</span>
         <span class="stack-tag">Scikit-Learn</span>
-        <span class="stack-tag">Quantum ML</span>
+        <span class="stack-tag">TensorFlow</span>
       </div>
     </a>
   </div>
@@ -1132,7 +1211,7 @@ footer span { color: var(--neon-red); }
         <div class="icon-box">🟢</div>
         <span>FIVERR</span>
       </a>
-      <a class="contact-icon" href="https://github.com/YOUR_USERNAME" target="_blank" title="GitHub">
+      <a class="contact-icon" href="https://github.com/Mohammad-Mahidul-Araf-111790" target="_blank" title="GitHub">
         <div class="icon-box">🐙</div>
         <span>GITHUB</span>
       </a>
@@ -1148,6 +1227,14 @@ footer span { color: var(--neon-red); }
      JAVASCRIPT
 ══════════════════════════════════════ -->
 <script>
+/* ── UNIFIED ANIMATION SPEED CONSTANTS ── */
+const ANIMATION_SPEEDS = {
+  matrix: 48,
+  cursor: 150,
+  typewriter: { fast: 38, slow: 68, pause: 1800 },
+  parallax: 0.08,
+};
+
 /* ── MATRIX RAIN ── */
 (function(){
   const canvas = document.getElementById('matrix-canvas');
@@ -1178,16 +1265,32 @@ footer span { color: var(--neon-red); }
 
   resize();
   window.addEventListener('resize', resize);
-  setInterval(draw, 48);
+  setInterval(draw, ANIMATION_SPEEDS.matrix);
 })();
 
-/* ── CUSTOM CURSOR ── */
+/* ── CUSTOM CURSOR WITH PARALLAX ── */
 (function(){
   const c = document.getElementById('cursor');
+  const imageContainer = document.getElementById('hero-image-container');
+  let mouseX = 0, mouseY = 0;
+
   document.addEventListener('mousemove', e => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
     c.style.left = e.clientX + 'px';
     c.style.top  = e.clientY + 'px';
+
+    // Parallax effect on image
+    if(imageContainer){
+      const rect = imageContainer.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      const distX = (mouseX - centerX) * ANIMATION_SPEEDS.parallax;
+      const distY = (mouseY - centerY) * ANIMATION_SPEEDS.parallax;
+      imageContainer.style.transform = `translateY(calc(-50% + ${distY}px)) translateX(${distX}px)`;
+    }
   });
+
   document.querySelectorAll('a,button,.proj-card,.interest-card,.contact-icon').forEach(el => {
     el.addEventListener('mouseenter', () => c.classList.add('hover'));
     el.addEventListener('mouseleave', () => c.classList.remove('hover'));
@@ -1210,12 +1313,12 @@ footer span { color: var(--neon-red); }
     const current = roles[ri];
     if(!deleting){
       el.textContent = current.slice(0, ++ci);
-      if(ci === current.length){ deleting = true; setTimeout(tick, 1800); return; }
+      if(ci === current.length){ deleting = true; setTimeout(tick, ANIMATION_SPEEDS.typewriter.pause); return; }
     } else {
       el.textContent = current.slice(0, --ci);
       if(ci === 0){ deleting = false; ri = (ri+1) % roles.length; setTimeout(tick, 400); return; }
     }
-    setTimeout(tick, deleting ? 38 : 68);
+    setTimeout(tick, deleting ? ANIMATION_SPEEDS.typewriter.fast : ANIMATION_SPEEDS.typewriter.slow);
   }
   setTimeout(tick, 1200);
 })();
@@ -1244,6 +1347,15 @@ footer span { color: var(--neon-red); }
     });
   }, { threshold: .3 });
   document.querySelectorAll('#skills').forEach(s => obs.observe(s));
+})();
+
+/* ── IMAGE SOURCE CUSTOMIZATION ── */
+(function(){
+  const heroImage = document.getElementById('hero-image');
+  // Change this URL to your image path:
+  // Option 1: Local file: 'images/your-photo.jpg'
+  // Option 2: URL: 'https://yoursite.com/image.jpg'
+  // Example: heroImage.src = 'images/profile.jpg';
 })();
 </script>
 </body>
