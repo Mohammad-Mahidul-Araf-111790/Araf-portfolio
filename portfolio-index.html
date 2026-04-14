@@ -1151,8 +1151,8 @@ const ANIMATION_SPEEDS = {
   matrix: 48,
   cursor: 150,
   typewriter: { fast: 38, slow: 68, pause: 1800 },
-  parallax: 0,
-};scroll: 0.05
+  scroll: 0.05,
+};
 
 /* ── MATRIX RAIN ── */
 (function(){
@@ -1266,16 +1266,16 @@ const ANIMATION_SPEEDS = {
 
 /* ── SKILL BAR ANIMATION ── */
 (function(){
-  conOption 1: Use an external image URL
-  // heroImage.src = 'https://example.com/your-image.jpg';
-  
-  // Option 2: Base64 encoded image (for embedded data)
-  // heroImage.src = 'data:image/jpeg;base64,...';
-  
-  // Handle image load error
-  heroImage.addEventListener('error', function() {
-    console.warn('Image failed to load. Check the path: images/profile.jpg');
-  });
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        e.target.querySelectorAll('.skill-fill').forEach(bar => {
+          bar.style.width = bar.dataset.w + '%';
+        });
+      }
+    });
+  }, { threshold: .3 });
+  document.querySelectorAll('#skills').forEach(s => obs.observe(s));
 })();
 </script>
 </body>
